@@ -1,49 +1,27 @@
-import { Typography } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import withStyles from "@material-ui/core/styles/withStyles";
-import TextField from "@material-ui/core/TextField";
-import axios from "axios";
-import PropTypes from "prop-types";
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import PropTypes from 'prop-types';
+import AppIcon from '../images/house.png';
+import { Link } from 'react-router-dom';
+
+// MUI Stuff
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import AppIcon from "../images/house.png";
+import theme from "../util/theme";
+// Redux stuff
+import { connect } from 'react-redux';
+import { loginUser } from '../redux/actions/userActions';
 
-const styles = {
-    form: {
-        textAlign: "center"
-    },
-    image: {
-        margin: "20px, auto, 20px, auto"
-    },
-    pageTitle: {
-        margin: "10px, auto, 10px, auto"
-    },
-    textField: {
-        margin: "10px, auto, 10px, auto"
-    },
-    button: {
-        marginTop: 20,
-        position: "relative"
-    },
-    customError: {
-        color: "red",
-        fontSize: "0.8rem",
-        marginTop: 10
-    },
-    progress: {
-        position: "absolute"
-    }
-
-}
+const styles = theme;
 
 class login extends Component {
 
     state = {
         email: "",
         password: "",
-        loading: false,
         errors: {}
     }
 
@@ -51,38 +29,26 @@ class login extends Component {
         this.setState({
             [event.target.name]: event.target.value
         })
-    }
+    };
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if(nextProps.UI.errors) {
+          return ({ errors: nextProps.UI.errors});
+        }
+        else return null;
+      };
 
     handleSubmit = event => {
         event.preventDefault();
-        this.setState({
-            loading: true
-        });
-
         const userData = {
            email: this.state.email,
            password: this.state.password 
-        };
-
-        axios.post("/login", userData)
-        .then(res => {
-            console.log(res.data);
-            this.setState({
-                loading: false
-            });
-            this.props.history.push("/")   
-        })
-        .catch(err => {
-            console.log(err.response.data);
-            this.setState({
-                errors: err.response.data,
-                loading: false
-            })
-        })       
+        };    
+        this.props.loginUser(userData, this.props.history);
     };
     render() {
-        const { classes } = this.props;
-        const {errors, loading} = this.state;
+        const { classes, UI: { loading } } = this.props;
+        const { errors }  = this.state
 
         return (
             <Grid container className={classes.form}>
@@ -129,7 +95,19 @@ class login extends Component {
 }
 
 login.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    loginUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(login);
+const mapStateToProps = state => ({
+    user: state.user,
+    UI: state.UI
+});
+
+const mapActionsToProps = {
+    loginUser
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(login));
