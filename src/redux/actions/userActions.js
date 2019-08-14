@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CLEAR_ERRORS, LOADING_UI, SET_ERRORS, SET_USER, SET_UNAUTHENTICATED } from "../types";
+import { CLEAR_ERRORS, LOADING_UI, SET_ERRORS, SET_USER, SET_UNAUTHENTICATED, LOADING_USER } from "../types";
 
 export const loginUser = (userData, history) => dispatch => {
     dispatch({type: LOADING_UI});
@@ -19,6 +19,7 @@ export const loginUser = (userData, history) => dispatch => {
 };
 
 export const getUserData = () => (dispatch) => {
+    dispatch({type: LOADING_USER});
     axios
       .get("/user")
       .then((res) => {
@@ -57,5 +58,14 @@ const setAuthorizationHeader = token => {
     const FBIdToken = `Bearer ${token}`;
     localStorage.setItem("FBIdToken", FBIdToken);
     axios.defaults.headers.common["Authorization"] = FBIdToken;
+};
+
+export const uploadImage = formData => dispatch => {
+    dispatch({type: LOADING_USER});
+    axios.post("/user/image", formData)
+    .then(res => {
+        dispatch(getUserData());        
+    })
+    .catch(err => console.log(err));
 };
 

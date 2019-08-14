@@ -2,6 +2,7 @@ import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import React, { Component } from 'react';
 import Post from "../components/Post";
+import Profile from "../components/Profile";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -30,7 +31,7 @@ class home extends Component {
                 {recentPostMarkup}
                 </Grid>
                 <Grid item sm={4} xs={12}>
-                <p>Profile...</p>
+                <Profile />
                 </Grid>
             </Grid>
         );
