@@ -28,9 +28,12 @@ export default {
     textField: {
         margin: "10px, auto, 10px, auto"
     },
+    editbutton: {
+      float: "right"
+    },
     button: {
         marginTop: 20,
-        position: "relative"
+        position: "relative",
     },
     customError: {
         color: "red",
