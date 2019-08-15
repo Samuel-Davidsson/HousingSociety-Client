@@ -1,30 +1,27 @@
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
 import React, { Component } from 'react';
 import Post from "../components/Post";
 import Profile from "../components/Profile";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import PropTypes from "prop-types";
+
+import { connect } from "react-redux";
+import { getPosts } from "../redux/actions/dataActions";
 
 class home extends Component {
-    state = {
-        posts: null
-    }
     componentDidMount() {
-        axios.get("/posts")
-        .then(res => {
-            this.setState({
-                posts: res.data
-            })
-        })
-        .catch(err => console.log(err));
+        this.props.getPosts();
     };
 
     render() {
+        const { posts, loading} = this.props.data;
         dayjs.extend(relativeTime);
-        let recentPostMarkup = this.state.posts ? (
-            this.state.posts.map(post => <Post key={post.postId} post={post} formatDate={dayjs}/>)
-        ) : <p>Loading..</p>
+        let recentPostMarkup = !loading ? (
+            posts.map(post => <Post key={post.postId} post={post} formatDate={dayjs}/>)
+        ) : (
+            <p>Loading..</p>
+        );
         return (
             <Grid container spacing={10}>
                 <Grid item sm={8} xs={12}>
@@ -36,5 +33,15 @@ class home extends Component {
             </Grid>
         );
     }
-}
-export default home;
+};
+
+home.propTypes = {
+    getPosts: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+    data: state.data
+});
+
+export default connect(mapStateToProps, { getPosts })(home);
