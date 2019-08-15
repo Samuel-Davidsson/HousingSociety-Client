@@ -1,23 +1,21 @@
-import React, { Fragment } from 'react';
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import dayjs from "dayjs";
-
-import withStyles from "@material-ui/core/styles/withStyles";
 import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
 import MuiLink from "@material-ui/core/Link";
+import Paper from "@material-ui/core/Paper";
+import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit'; 
-import Tooltip from "@material-ui/core/Tooltip";
-
-import { connect } from "react-redux";
-import { logoutUser, uploadImage } from "../redux/actions/userActions";
-
-import LocationOn from "@material-ui/icons/LocationOn";
-import LinkIcon from "@material-ui/icons/Link";
 import CalenderToday from "@material-ui/icons/CalendarToday";
+import EditIcon from '@material-ui/icons/Edit';
+import KeyboardReturn from "@material-ui/icons/KeyboardReturn";
+import LinkIcon from "@material-ui/icons/Link";
+import LocationOn from "@material-ui/icons/LocationOn";
+import dayjs from "dayjs";
+import PropTypes from "prop-types";
+import React, { Fragment } from 'react';
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logoutUser, uploadImage } from "../redux/actions/userActions";
+import MyButton from '../util/MyButton';
+import EditDetails from "./EditDetails";
 
 
 const styles = (theme) => ({
@@ -70,7 +68,7 @@ const styles = (theme) => ({
 
 const Profile = props => {
 
-    const { classes, user: {credentials : { handle, createAt, imageUrl, bio, website, location}, loading, authenticated}} = props;
+    const { classes, user: { credentials : { handle, createAt, imageUrl, bio, website, location}, loading, authenticated }} = props;
 
     const handleImageChange = event => {
         const image = event.target.files[0];
@@ -84,17 +82,19 @@ const Profile = props => {
         fileInput.click();
     };
 
+    const handleLogout = () => {
+      props.logoutUser();
+    };
+
     let profileMarkup = !loading ? (authenticated ? (
         <Paper className={classes.paper}>
             <div className={classes.profile}>
                 <div className="image-wrapper">
                     <img src={imageUrl} alt="profile" className="profile-image"/>
                     <input type="file" id="imageInput" hidden="hidden" onChange={handleImageChange} />
-                    <Tooltip title="Edit profile picture" placement="top">
-                        <IconButton onClick={handleEditImage} className="button">
-                            <EditIcon color="primary" />     
-                        </IconButton>
-                    </Tooltip>    
+                   <MyButton tip="Edit profile picture" onClick={handleEditImage} btnClassName="button">
+                     <EditIcon color="primary" />
+                   </MyButton>
                 </div>
                 <hr />
                 <div className="profile-details">
@@ -122,6 +122,10 @@ const Profile = props => {
                     <CalenderToday color="primary"/>{" "}
                     <span>Joined {dayjs(createAt).format("MMM YYYY")}</span>
                 </div>
+                <MyButton tip="Logut" onClick={handleLogout}>
+                     <KeyboardReturn color="primary" />
+                   </MyButton>
+                <EditDetails />
             </div>
         </Paper>
     ) : (
@@ -140,7 +144,7 @@ const Profile = props => {
         </Paper>
     )) : (<p>Loading...</p>)
         return profileMarkup;
-}
+};
 
 const mapStateToProps = state => ({
     user: state.user
@@ -154,8 +158,5 @@ Profile.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     uploadImage: PropTypes.func.isRequired
 };
-
-
-
 
 export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Profile));
