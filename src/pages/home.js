@@ -13,7 +13,6 @@ class home extends Component {
     componentDidMount() {
         this.props.getPosts();
     };
-
     render() {
         const { posts, loading} = this.props.data;
         dayjs.extend(relativeTime);

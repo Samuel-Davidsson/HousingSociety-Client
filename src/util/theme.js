@@ -1,3 +1,4 @@
+
 export default {
     palette:{
         primary: {
@@ -42,5 +43,19 @@ export default {
     },
     progress: {
         position: "absolute"
+    },    
+    deleteButton: {
+      position: "absolute",
+      left: "55%",
+    },
+    closeButton: {
+      position: "absolute",
+      left: "91%",
+      top: "6%"
+    },
+    submitButton: {
+      position: "relative",
+      float: "right",
+      marginTop: 10
     }
   };

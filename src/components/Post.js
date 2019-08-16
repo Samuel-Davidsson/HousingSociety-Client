@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { likePost, unlikePost } from "../redux/actions/dataActions";
 import MyButton from '../util/MyButton';
+import DeletePost from "./DeletePost";
 
 const styles = {
     card: {
@@ -32,6 +33,21 @@ const styles = {
 
 const Post = props => {
 
+  dayjs.extend(relativeTime);
+  const {
+    classes,
+    post: {
+      body,
+      createdAt,
+      userImage,
+      userHandle,
+      postId,
+      likeCount,
+      commentCount
+    },
+    user: { authenticated, credentials: { handle } }
+  } = props;
+
     const likedPost = () => {
       if (
         props.user.likes &&
@@ -42,26 +58,19 @@ const Post = props => {
         return true;
       else return false;
     };
+
     const likePost = () => {
       props.likePost(props.post.postId);
     };
+
     const unlikePost = () => {
       props.unlikePost(props.post.postId);
     };
-      dayjs.extend(relativeTime);
-      const {
-        classes,
-        post: {
-          body,
-          createdAt,
-          userImage,
-          userHandle,
-          postId,
-          likeCount,
-          commentCount
-        },
-        user: { authenticated }
-      } = props;
+
+    const deleteButton = authenticated && userHandle === handle ? (
+        <DeletePost postId={postId} />
+    ) : null;
+
       const likeButton = !authenticated ? (
         <MyButton tip="Like">
           <Link to="/login">
@@ -91,12 +100,13 @@ const Post = props => {
               to={`/users/${userHandle}`}
               color="primary"
             >
-              {userHandle}
+            {userHandle}
             </Typography>
             <Typography variant="body2" color="textSecondary">
               {dayjs(createdAt).fromNow()}
             </Typography>
             <Typography variant="body1">{body}</Typography>
+            {deleteButton}
             {likeButton}
             <span>{likeCount} Likes</span>
             <MyButton tip="comments">
