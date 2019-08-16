@@ -57,5 +57,27 @@ export default {
       position: "relative",
       float: "right",
       marginTop: 10
+    },
+    seperator: {
+      border: "none",
+      margin: 4
+    },
+    profileImage: {
+      maxWidth: 200,
+      height: 200,
+      borderRadius: "50%",
+      objectFit: "cover"
+    },
+    dialogContent: {
+      padding: 20
+    },
+    expandButton: {
+      position: "absolute",
+      left: "50%"
+    },
+    spinnerDiv: {
+      textAlign: "center",
+      marginTop: 50,
+      marginBottom: 50,
     }
   };
