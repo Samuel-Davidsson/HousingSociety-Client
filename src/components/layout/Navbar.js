@@ -1,15 +1,15 @@
-import React, { Fragment } from 'react';
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import MyButton from "../util/MyButton";
-import SubmitPost from "./CreatePost";
-
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import HomeIcon from "@material-ui/icons/Home";
 import Notifications from "@material-ui/icons/Notifications";
+import PropTypes from "prop-types";
+import React, { Fragment } from 'react';
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import MyButton from "../../util/MyButton";
+import SubmitPost from "../post/CreatePost";
+
 
 const Navbar = props => {
     const authenticated = props.authenticated;

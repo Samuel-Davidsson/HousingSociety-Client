@@ -1,17 +1,17 @@
-import React, { Fragment, Component } from "react";
-import PropTypes from "prop-types";
-import MyButton from '../util/MyButton';
-import withStyles from "@material-ui/core/styles/withStyles";
-import theme from "../util/theme";
-
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import withStyles from "@material-ui/core/styles/withStyles";
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
-
+import PropTypes from "prop-types";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { deletePost } from "../redux/actions/dataActions";
+import { deletePost } from "../../redux/actions/dataActions";
+import MyButton from '../../util/MyButton';
+import theme from "../../util/theme";
+
+
 
 
 const styles = theme;

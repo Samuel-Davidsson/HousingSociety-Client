@@ -9,9 +9,11 @@ import PropTypes from "prop-types";
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getPost } from "../redux/actions/dataActions";
-import MyButton from "../util/MyButton";
-import theme from "../util/theme";
+import { getPost, clearErrors } from "../../redux/actions/dataActions";
+import MyButton from "../../util/MyButton";
+import Comments from "./Comments";
+import CommentForm from "./CommentForm";
+import theme from "../../util/theme";
 import LikeButton from "./LikeButton";
 
 const styles = theme;
@@ -28,10 +30,11 @@ const styles = theme;
 
     handleClose = () => {
         this.setState({ open: false });
+        this.props.clearErrors();
     };
 
     render() {
-        const { classes, post: {postId, body, createdAt, likeCount, commentCount, userImage, userHandle }, UI: { loading }} = this.props;
+        const { classes, post: {postId, body, createdAt, likeCount, commentCount, userImage, userHandle, comments }, UI: { loading }} = this.props;
         const dialogMarkup = loading ? (
             <div className={classes.spinnerDiv}>
             <CircularProgress size={200} thickness={2}/>
@@ -49,11 +52,11 @@ const styles = theme;
                     to={`/users/${userHandle}`}>
                         @{userHandle}
                     </Typography>
-                    <hr className={classes.seperator} />
+                    <hr className={classes.invisibleSeparator} />
                     <Typography variant="body2" color="textSecondary">
                         {dayjs(createdAt).format("h:mm a, MMM DD YYYY")}
                     </Typography>
-                    <hr className={classes.seperator} />
+                    <hr className={classes.invisibleSeparator} />
                     <Typography variant="body1">
                         {body}
                     </Typography>
@@ -64,6 +67,9 @@ const styles = theme;
                     </MyButton>
                      <span>{commentCount} comments</span>
                 </Grid>
+                <hr className={classes.visableSeparator} />
+                <CommentForm postId={postId} />
+                <Comments comments={comments} />
             </Grid>
         );
         return(
@@ -88,6 +94,7 @@ const styles = theme;
 
 
  PostDialog.propTypes = {
+    clearErrors: PropTypes.func.isRequired,
     getPost: PropTypes.func.isRequired,
     postId: PropTypes.string.isRequired,
     userHandle: PropTypes.string.isRequired,
@@ -101,7 +108,8 @@ const styles = theme;
  });
 
  const mapActionsToProps = {
-     getPost
+     getPost,
+     clearErrors
  };
 
  export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(PostDialog));

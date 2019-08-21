@@ -5,9 +5,9 @@ import EditIcon from "@material-ui/icons/Edit";
 import PropTypes from "prop-types";
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { editUserDetails } from "../redux/actions/userActions";
-import theme from "../util/theme";
-import MyButton from "../util/MyButton";
+import { editUserDetails } from "../../redux/actions/userActions";
+import theme from "../../util/theme";
+import MyButton from "../../util/MyButton";
 
 
 

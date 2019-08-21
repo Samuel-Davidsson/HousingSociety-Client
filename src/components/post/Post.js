@@ -4,16 +4,16 @@ import CardMedia from '@material-ui/core/CardMedia';
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import ChatIcon from "@material-ui/icons/Chat";
-import PropTypes from "prop-types";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import PropTypes from "prop-types";
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import DeletePost from "./DeletePost";
-import PostDialog from "./PostDialog";
 import LikeButton from './LikeButton';
+import PostDialog from "./PostDialog";
 
 const styles = {
     card: {

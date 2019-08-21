@@ -13,62 +13,18 @@ import PropTypes from "prop-types";
 import React, { Fragment } from 'react';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { logoutUser, uploadImage } from "../redux/actions/userActions";
-import MyButton from '../util/MyButton';
+import { logoutUser, uploadImage } from "../../redux/actions/userActions";
+import MyButton from '../../util/MyButton';
 import EditDetails from "./EditDetails";
+import theme from "../../util/theme";
 
 
-const styles = (theme) => ({
-    paper: {
-      padding: 20
-    },
-    profile: {
-      '& .image-wrapper': {
-        textAlign: 'center',
-        position: 'relative',
-        '& button': {
-          position: 'absolute',
-          top: '80%',
-          left: '70%'
-        }
-      },
-      '& .profile-image': {
-        width: 200,
-        height: 200,
-        objectFit: 'cover',
-        maxWidth: '100%',
-        borderRadius: '50%'
-      },
-      '& .profile-details': {
-        textAlign: 'center',
-        '& span, svg': {
-          verticalAlign: 'middle'
-        },
-        '& a': {
-          color: theme.palette.primary.main
-        }
-      },
-      '& hr': {
-        border: 'none',
-        margin: '0 0 10px 0'
-      },
-      '& svg.button': {
-        '&:hover': {
-          cursor: 'pointer'
-        }
-      }
-    },
-    buttons: {
-      textAlign: 'center',
-      '& a': {
-        margin: '20px 10px'
-      }
-    }
-  });
+const styles = theme;
+    
 
 const Profile = props => {
 
-    const { classes, user: { credentials : { handle, createAt, imageUrl, bio, website, location}, loading, authenticated }} = props;
+    const { classes, user: { credentials : { handle, createdAt, imageUrl, bio, website, location}, loading, authenticated }} = props;
 
     const handleImageChange = event => {
         const image = event.target.files[0];
@@ -120,7 +76,7 @@ const Profile = props => {
                         </Fragment>
                     )}
                     <CalenderToday color="primary"/>{" "}
-                    <span>Joined {dayjs(createAt).format("MMM YYYY")}</span>
+                    <span>Joined {dayjs(createdAt).format("MMM YYYY")}</span>
                 </div>
                 <MyButton tip="Logut" onClick={handleLogout}>
                      <KeyboardReturn color="primary" />

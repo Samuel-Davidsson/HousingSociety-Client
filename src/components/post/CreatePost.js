@@ -1,19 +1,15 @@
-import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
-
 import { Dialog, DialogContent, DialogTitle, TextField } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AddIcon from "@material-ui/icons/Add";
 import CloseIcon from "@material-ui/icons/Close";
-
+import PropTypes from "prop-types";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { clearErrors, createPost } from "../redux/actions/dataActions";
-import MyButton from "../util/MyButton";
-import theme from "../util/theme";
-
-
+import { clearErrors, createPost } from "../../redux/actions/dataActions";
+import MyButton from "../../util/MyButton";
+import theme from "../../util/theme";
 
 const styles = theme;
 
