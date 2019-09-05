@@ -37,5 +37,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://europe-west1-housingsociety-827a2.cloudfunctions.net/api/"
+  "proxy": "https://europe-west1-housingsociety-827a2.cloudfunctions.net/api"
 }

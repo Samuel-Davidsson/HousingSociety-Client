@@ -22,6 +22,8 @@ import themeObject from "./util/theme";
 
 const theme = createMuiTheme(themeObject);
 
+axios.defaults.baseURL = "https://europe-west1-housingsociety-827a2.cloudfunctions.net/api";
+
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
@@ -48,6 +50,7 @@ class App extends Component {
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signup" component={signup} />
                 <Route exact path="/users/:handle" component={user} />
+                <Route exact path="/users/:handle/post/:postId" component={user} />
               </Switch>
             </div>
           </Router>

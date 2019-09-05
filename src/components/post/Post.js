@@ -79,7 +79,7 @@ const Post = props => {
               <ChatIcon color="primary" />
             </MyButton>
             <span>{commentCount} comments</span>
-            <PostDialog postId={postId} userHandle={userHandle} />
+            <PostDialog postId={postId} userHandle={userHandle} openDialog={props.openDialog} />           
           </CardContent>
         </Card>
       );
@@ -88,13 +88,13 @@ const Post = props => {
 Post.propTypes = {
     user: PropTypes.object.isRequired,
     post: PropTypes.object.isRequired,
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    openDialog: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
     user: state.user
 });
-
 
 export default connect(mapStateToProps)(withStyles(styles)(Post));
 

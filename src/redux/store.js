@@ -13,7 +13,8 @@ const reducers = combineReducers({
     data: dataReducer,
     UI: uiReducer
 });
-
-const store = createStore(reducers, initState, compose(applyMiddleware(...middleWare), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+// Add this if I want dev tools to work.
+// , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const store = createStore(reducers, initState, compose(applyMiddleware(...middleWare)));
 
 export default store;

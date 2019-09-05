@@ -50,8 +50,8 @@ export default {
     },
     closeButton: {
       position: "absolute",
-      left: "91%",
-      top: "6%"
+      left: "88%",
+      top: "1.5%"
     },
     submitButton: {
       position: "relative",

@@ -27,12 +27,13 @@ export class CommentForm extends Component {
         this.setState({
             [event.target.name]: event.target.value
         });
-    }
+    };
 
     handleSubmit = event => {
         event.preventDefault();
         this.props.submitComment(this.props.postId, { body: this.state.body });
-    }
+        this.setState({body: ""})
+    };
 
     render() {
         const { classes, authenticated } = this.props;
